@@ -1,0 +1,48 @@
+services:
+
+  #Shopify Session Storage
+  shopify.session_storage:
+    class: ../../src/user/infrastructure/storage/PrismaSessionStorage
+    arguments: ["@app.repository.session"]
+
+  #services
+  app.service.products_count:
+    class: ../../src/products/application/counter/ProductsCounter
+    arguments: ["@app.repository.products"]
+
+  app.service.description_updater:
+    class: ../../src/products/application/update/DescriptionUpdater
+    arguments: [ "@app.repository.products" ]
+
+  #infrastructure
+  ##repository
+  app.repository.products:
+    class: ../../src/products/infrastructure/persistence/ShopifyProductRepository
+    arguments: [""]
+
+  app.repository.session:
+    class: ../../src/user/infrastructure/persistence/PrismaSessionRepository
+    arguments: [""]
+
+  ###abstract repository implementations
+  app.repository.abstract_prisma:
+    abstract: true
+    class: ../../src/shared/infrastructure/persistence/AbstractPrismaRepository
+    arguments: ["@app.prisma_client"]
+
+  app.repository.prisma_client:
+    class: ../../src/shared/infrastructure/persistence/client/PrismaClient
+    arguments: [""]
+
+  ##controllers
+  app.controller.HealthCheckController:
+    class: ../controllers/HealthCheckController
+    arguments: [""]
+
+  app.controller.ProductsCountController:
+    class: ../controllers/ProductsCountController
+    arguments: ["@app.service.products_count"]
+
+  app.controller.ProductsController:
+    class: ../controllers/ProductsController
+    arguments: [ "@app.service.description_updater" ]

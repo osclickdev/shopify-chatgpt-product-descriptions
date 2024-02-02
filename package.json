@@ -1,0 +1,31 @@
+{
+  "name": "shopify-typescript-template-node-typescript",
+  "version": "1.0.0",
+  "main": "web/index.js",
+  "license": "UNLICENSED",
+  "scripts": {
+    "shopify": "shopify",
+    "build": "shopify app build",
+    "dev": "shopify app dev",
+    "info": "shopify app info",
+    "generate": "shopify app generate",
+    "deploy": "shopify app deploy",
+    "start": "cd web/backend && npm run start"
+  },
+  "dependencies": {
+    "@shopify/app": "3.47.5",
+    "@shopify/cli": "3.47.5",
+    "express-promise-router": "^4.1.1",
+    "node-dependency-injection": "^2.7.1"
+  },
+  "author": "Cristian Sanclemente",
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "workspaces": [
+    "web/backend/*",
+    "web/frontend/*"
+  ]
+}

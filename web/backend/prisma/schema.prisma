@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Session {
+  id               String    @id @unique
+  shop             String    @unique
+  state            String
+  isOnline         Boolean
+  expires          DateTime?
+  scope            String
+  accessToken      String?
+  onlineAccessInfo String?
+}
