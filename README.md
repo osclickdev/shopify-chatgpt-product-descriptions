@@ -1,4 +1,4 @@
-# 🚀 Shopify Community App Template (NodeJS)
+# 🚀 (WIP) Shopify Community App Template (NodeJS) - ChatGPT Descriptions 
 
 ## 📚 Overview
 
