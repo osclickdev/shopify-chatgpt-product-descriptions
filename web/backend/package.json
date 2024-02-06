@@ -23,6 +23,7 @@
     "errorhandler": "^1.5.1",
     "express": "^4.18.2",
     "node-dependency-injection": "^2.7.1",
+    "openai": "^4.26.1",
     "serve-static": "^1.14.1"
   },
   "devDependencies": {

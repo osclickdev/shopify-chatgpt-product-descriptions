@@ -14,14 +14,31 @@ services:
     class: ../../src/products/application/update/DescriptionUpdater
     arguments: [ "@app.repository.products" ]
 
+  app.service.description_finder:
+    class: ../../src/products/application/find/DescriptionFinder
+    arguments: [ "@app.repository.ai" ]
+
+  app.service.product_name_finder:
+    class: ../../src/products/application/find/ProductNameFinder
+    arguments: [ "@app.repository.products" ]
+
   #infrastructure
   ##repository
   app.repository.products:
     class: ../../src/products/infrastructure/persistence/ShopifyProductRepository
-    arguments: [""]
+    arguments: ["@shopify.session_storage"]
 
   app.repository.session:
     class: ../../src/user/infrastructure/persistence/PrismaSessionRepository
+    arguments: [""]
+
+  app.repository.ai:
+    class: ../../src/shared/infrastructure/persistence/OpenAIRepository
+    arguments: ["@app.client.ai"]
+
+  ##client
+  app.client.ai:
+    class: ../../src/shared/infrastructure/persistence/client/OpenAIClient
     arguments: [""]
 
   ###abstract repository implementations
@@ -45,4 +62,8 @@ services:
 
   app.controller.ProductsController:
     class: ../controllers/ProductsController
-    arguments: [ "@app.service.description_updater" ]
+    arguments: [
+      "@app.service.product_name_finder",
+      "@app.service.description_finder",
+      "@app.service.description_updater"
+    ]
